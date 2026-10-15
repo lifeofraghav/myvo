@@ -728,7 +728,7 @@ html.static .rv{opacity:1;transform:none;transition:none}
       var em=f.querySelector('input[name=email]'), ph=f.querySelector('input[name=phone]'), msg=f.querySelector('.wl-msg');
       var v=(em.value||'').trim();
       if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)){msg.textContent='Enter a valid email address.';em.focus();return;}
-      var planEl=d.querySelector('input[name=plan]:checked'), data={email:v,phone:ph?ph.value.trim():'',plan:planEl?planEl.value:'',source:f.classList.contains('ah-wl')?'hero':'waitlist',at:new Date().toISOString()};
+      var planEl=d.querySelector('input[name=plan]:checked'), data={email:v,phone:ph?ph.value.trim():'',plan:planEl?planEl.value:'',source:f.classList.contains('ah-wl')?'hero':'waitlist',page:location.hostname||'local',at:new Date().toISOString()};
       var btn=f.querySelector('button'); btn.disabled=true;
       function ok(){try{localStorage.setItem(KEY,'1');}catch(e){} markJoined(); btn.disabled=false;}
       if(WAITLIST_ENDPOINT){
