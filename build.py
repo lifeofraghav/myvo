@@ -5,6 +5,8 @@ import base64, pathlib
 root = pathlib.Path(__file__).parent
 MAP = {
     "__HERO__": "myvo_hero.jpg",
+    "__SYSTEM__": "myvo_system.jpg",
+    "__BOX__": "myvo_box.jpg",
     "__JAR__": "c_jar.jpg",
     "__SEEDS__": "c_micro.jpg",
     "__ORCHARD__": "c_labwide.jpg",

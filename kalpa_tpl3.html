@@ -375,7 +375,8 @@ body{background:#fff}
 .sh-r{gap:14px;height:44px}
 .sh a{text-decoration:none;color:var(--ink2)}
 .sh a:hover{color:var(--ink)}
-.sh .logo{margin-right:6px}
+.sh .logo{margin-right:0;gap:8px}
+.sh .word{padding-left:0;margin-right:-.5em}
 .sh-cta{background:#fff;color:var(--ink)!important;height:32px;padding:0 16px;border-radius:999px;display:inline-flex;align-items:center;font-weight:500}
 @media(max-width:820px){.sh .hide-m{display:none}}
 @media(max-width:420px){.sh .hide-s{display:none}.sh-l{gap:16px}}
@@ -437,7 +438,8 @@ body{background:#fff}
 #science .cbars i.m{background:var(--accent)}
 .zh h2{font-weight:600;letter-spacing:-.04em;font-size:clamp(2.2rem,4vw,3.4rem)}
 .shop-card{background:var(--apple);border-radius:28px;padding:clamp(20px,3vw,40px)}
-.shop-card .gal-main,.shop-card .thumb{background:#fff}
+.shop-card .gal-main,.shop-card .thumb{background:var(--apple)}
+.shop-card .gal-main{background:#F5F4F7}
 .shop-card .buy{top:80px}
 .save{font-style:normal;font-size:.72rem;font-weight:600;color:#fff;background:var(--accent);border-radius:999px;padding:2px 8px;margin-left:6px;vertical-align:2px}
 .opt{background:#fff}
@@ -499,6 +501,13 @@ body{background:#fff}
 html.no3d .mol{display:none}
 @media(max-width:900px){.src .wrap{grid-template-columns:1fr}}
 
+/* product gallery: one frame size for every photo */
+.gal-main{aspect-ratio:5/4;background:var(--apple)}
+.gal-main .lbl{height:100%}
+.gal-main .lbl>img{width:100%;height:100%;object-fit:cover}
+.gal-main .lbl.fit>img{object-fit:contain}
+.thumbs{grid-template-columns:repeat(3,1fr)}
+.thumb{background:var(--apple)}
 /* motion */
 .rv{transition:opacity .8s var(--ease),transform .8s var(--ease)}
 .rv.wait{opacity:0;transform:translateY(22px)}
@@ -635,35 +644,16 @@ html.static .rv{opacity:1;transform:none;transition:none}
       <div class="gal-col rv">
         <div class="pola-main">
           <div class="gal-main" id="gal">
-        <figure class="lbl on" data-i="0">
-          <img src="__HERO__" alt="Myvo One: frosted glass jar of red softgels">
-        </figure>
-        <figure class="lbl" data-i="1">
-          <img src="__POUCH__" alt="Myvo refill pouch: matte black, compostable">
-          <div class="jp-label" aria-hidden="true" style="left:35%;right:37%;top:36%;height:30%">
-            <span class="jp-w" style="font-size:4cqw">MYVO</span>
-            <span class="jp-rule"></span>
-            <span class="jp-mono" style="font-size:1.4cqw">Refill / 60 softgels<br>Compostable foil</span>
+            <figure class="lbl on fit" data-i="0"><img src="__HERO__" alt="Myvo One: frosted glass jar of red softgels"></figure>
+            <figure class="lbl" data-i="1"><img src="__SYSTEM__" alt="Myvo One jar on a white block next to its black MYVO carton"></figure>
+            <figure class="lbl" data-i="2"><img src="__BOX__" alt="Black Myvo carton with a thin red rule under the MYVO wordmark"></figure>
           </div>
-        </figure>
-        <figure class="lbl" data-i="2">
-          <img src="__CARTON__" alt="Myvo carton: white board with a blind-embossed ring">
-          <div class="jp-label" aria-hidden="true" style="left:30%;right:30%;top:42%;height:14%;transform:rotate(13deg);color:#A3A3A8">
-            <span class="jp-w" style="font-size:3.2cqw">MYVO</span>
-            <span class="jp-mono" style="font-size:1.1cqw;color:#B1B1B6">Batch 001</span>
-          </div>
-        </figure>
-        <figure class="lbl" data-i="3">
-          <img src="__TRIO__" alt="The Myvo system: jar, refill pouch and carton">
-        </figure>
-      </div>
-      </div>
+        </div>
         <div class="thumbs" role="tablist" aria-label="Product photos">
-        <button class="thumb on" data-i="0" aria-label="Jar"><img src="__HERO__" alt=""></button>
-        <button class="thumb" data-i="1" aria-label="Refill pouch"><img src="__POUCH__" alt=""></button>
-        <button class="thumb" data-i="2" aria-label="Carton"><img src="__CARTON__" alt=""></button>
-        <button class="thumb" data-i="3" aria-label="The full system"><img src="__TRIO__" alt=""></button>
-      </div>
+          <button class="thumb on" data-i="0" aria-label="Jar"><img src="__HERO__" alt=""></button>
+          <button class="thumb" data-i="1" aria-label="Jar and carton"><img src="__SYSTEM__" alt=""></button>
+          <button class="thumb" data-i="2" aria-label="Carton"><img src="__BOX__" alt=""></button>
+        </div>
     
       </div>
       <div class="buy rv">
