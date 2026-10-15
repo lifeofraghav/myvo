@@ -11,6 +11,7 @@
   --line:#E6E6E9; --accent:#A82039;
   --maxw:1320px; --gut:clamp(20px,3.2vw,40px);
   --r:14px;
+  --stack:clamp(12px,1.6vw,20px);
   --ease:cubic-bezier(.2,.7,.2,1);
 }
 *{box-sizing:border-box}
@@ -366,7 +367,7 @@ html.no3d .mol{display:none}
 /* Seed x Apple */
 :root{--apple:#F5F5F7;--ink:#1D1D1F;--ink2:#424245;--muted:#6E6E73}
 body{background:#fff}
-.sh{position:fixed;z-index:70;top:14px;left:var(--gut);right:var(--gut);display:flex;justify-content:space-between;align-items:center;pointer-events:none}
+.sh{position:fixed;z-index:70;top:14px;left:max(var(--gut),calc((100% - var(--maxw))/2 + var(--gut)));right:max(var(--gut),calc((100% - var(--maxw))/2 + var(--gut)));display:flex;justify-content:space-between;align-items:center;pointer-events:none}
 .sh-l,.sh-r{pointer-events:auto;display:flex;align-items:center;gap:22px;padding:6px 8px 6px 18px;border-radius:999px;background:rgba(232,232,237,.72);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);font-size:.86rem}
 .sh-l{padding-right:20px;height:44px}
 .sh-r{gap:14px;height:44px}
@@ -395,7 +396,7 @@ body{background:#fff}
 .ah-bar b{color:var(--ink);font-weight:600}
 @media(max-width:600px){.ah{padding-top:100px}.ah-bar{flex-direction:column;gap:10px;padding:14px 18px;text-align:center}}
 
-.tiles{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:12px}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:var(--stack);max-width:var(--maxw);margin:0 auto;padding:var(--stack) var(--gut) 0}
 .tile{position:relative;border-radius:28px;background:var(--apple);text-align:center;padding:52px 32px 0;min-height:min(66vh,620px);display:flex;flex-direction:column;align-items:center;overflow:hidden}
 .tile.dark{background:#000;color:#fff}
 .tile h2{font-size:clamp(2.2rem,3.8vw,3.4rem);font-weight:600;letter-spacing:-.04em;line-height:1.05}
@@ -412,7 +413,7 @@ body{background:#fff}
 .tr-f{font-size:.76rem;color:var(--muted);padding-top:12px}
 @media(max-width:820px){.tiles{grid-template-columns:1fr}.tile{min-height:0;padding-top:44px}}
 
-.anat{padding:clamp(56px,7vw,96px) 0 0}
+.anat{padding:var(--stack) 0 0}
 .an-card{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);align-items:center;gap:24px;background:#E8EBEF;border-radius:28px;padding:clamp(28px,4vw,64px);overflow:hidden}
 .an-eye{font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .an-copy h2{font-size:clamp(1.8rem,3vw,2.6rem);font-weight:600;letter-spacing:-.035em;line-height:1.1;margin-top:14px}
