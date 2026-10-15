@@ -478,6 +478,24 @@ body{background:#fff}
 .opts-l{font-size:.82rem;color:var(--muted);padding:0;margin-bottom:8px}
 @media(max-width:520px){.wl-row{flex-direction:column}.ah-wl .btn{width:100%}}
 
+
+/* what goes into every softgel (3D molecule) */
+.src .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,5vw,80px);align-items:start}
+.src h2{font-size:clamp(2.2rem,4vw,3.4rem);font-weight:600;letter-spacing:-.04em;line-height:1.05}
+.src-copy{padding-top:6px}
+.src-copy p{color:var(--ink2);font-size:1.05rem}
+.src-copy p+p{margin-top:16px}
+.spec{display:grid;grid-template-columns:1fr 1fr;column-gap:28px;margin:32px 0 0;border-top:1px solid var(--line)}
+.spec div{padding:16px 0;border-bottom:1px solid var(--line)}
+.spec dt{font-size:.82rem;color:var(--muted)}
+.spec dd{margin:4px 0 0;font-weight:500}
+.mol{position:relative;margin:30px 0 0;border-radius:28px;background:var(--apple);aspect-ratio:5/4;overflow:hidden}
+.mol canvas{display:block;width:100%;height:100%;cursor:grab;touch-action:pan-y}
+.mol figcaption{position:absolute;left:24px;bottom:20px;font-size:.84rem;color:var(--muted)}
+.mol figcaption b{color:var(--ink);font-weight:600}
+html.no3d .mol{display:none}
+@media(max-width:900px){.src .wrap{grid-template-columns:1fr}}
+
 /* motion */
 .rv{transition:opacity .8s var(--ease),transform .8s var(--ease)}
 .rv.wait{opacity:0;transform:translateY(22px)}
@@ -584,6 +602,26 @@ html.static .rv{opacity:1;transform:none;transition:none}
       </article>
     </div>
     <p class="zfine rv">Not a stimulant, so you won't feel it in an hour. The trials measured these changes over weeks to months. Results vary.</p>
+  </div>
+</section>
+
+<section class="z src" id="ingredient">
+  <div class="wrap">
+    <div class="rv">
+      <h2>What goes into every softgel.</h2>
+      <figure class="mol" id="mol"><canvas aria-label="The Urolithin A molecule in 3D"></canvas><figcaption><b>Urolithin A</b>, C<sub>13</sub>H<sub>8</sub>O<sub>4</sub>. Drag to turn.</figcaption></figure>
+    </div>
+    <div class="rv src-copy">
+      <p>When an independent lab tested ten Urolithin A supplements, six did not contain the dose on the label. Unbranded powder is the norm in this category.</p>
+      <p>Myvo One is one ingredient: Urolithin A at above 99% purity, 250 mg in each softgel. No fillers posing as actives, no proprietary blend.</p>
+      <p>Before a batch ships, an independent lab confirms the purity and the dose, and we publish that report. If a batch fails, it does not ship.</p>
+      <dl class="spec">
+        <div><dt>Ingredient</dt><dd>Urolithin A</dd></div>
+        <div><dt>Purity</dt><dd>Above 99% by HPLC</dd></div>
+        <div><dt>Dose</dt><dd>500 mg a day, two softgels</dd></div>
+        <div><dt>Testing</dt><dd>Every batch, NABL lab</dd></div>
+      </dl>
+    </div>
   </div>
 </section>
 
@@ -766,5 +804,83 @@ html.static .rv{opacity:1;transform:none;transition:none}
   }
 })();
 </script>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+
+const D=document, H=D.documentElement;
+const STATIC=H.classList.contains('static');
+const clamp=(x,a,b)=>Math.min(b,Math.max(a,x));
+function hasGL(){try{return !!D.createElement('canvas').getContext('webgl2');}catch(e){return false;}}
+function onVisible(el,cb){new IntersectionObserver(es=>es.forEach(e=>cb(e.isIntersecting)),{rootMargin:'150px 0px'}).observe(el);}
+function loop(el,fn){ // runs fn(t,dt) only while el is on screen
+  let vis=false,run=false,last=0,sf=0;
+  const f=now=>{const dt=Math.min(.05,(now-last)/1000);last=now;fn(now/1000,dt);if((vis&&!STATIC)||(STATIC&&++sf<4))requestAnimationFrame(f);else run=false;};
+  const go=()=>{if(!run){run=true;last=performance.now();requestAnimationFrame(f);}};
+  if(STATIC){requestAnimationFrame(f);return go;}
+  onVisible(el,v=>{vis=v;if(v)go();});
+  return go;
+}
+if(hasGL()){try{mol();}catch(e){console.error(e);H.classList.add('no3d');}}else{H.classList.add('no3d');}
+
+/* ---------- the molecule ---------- */
+function mol(){
+  const fig=D.getElementById('mol'), cv=fig.querySelector('canvas');
+  const R=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true});
+  R.setPixelRatio(Math.min(devicePixelRatio,2)); R.toneMapping=THREE.ACESFilmicToneMapping;
+  const scene=new THREE.Scene(), pm=new THREE.PMREMGenerator(R);
+  scene.environment=pm.fromScene(new RoomEnvironment(),.04).texture;
+  const cam=new THREE.PerspectiveCamera(30,1.25,.1,50); cam.position.set(0,0,13.5);
+  const dl=new THREE.DirectionalLight(0xffffff,1.6); dl.position.set(2,3,5); scene.add(dl);
+
+  // three fused rings (dibenzo-pyranone), built on a hex grid
+  const r=1, s3=Math.sqrt(3), atoms=[], idx=new Map(), bonds=[], bset=new Set();
+  const at=(x,y,el)=>{const k=Math.round(x*100)+','+Math.round(y*100);if(idx.has(k)){atoms[idx.get(k)].rings++;return idx.get(k);}idx.set(k,atoms.length);atoms.push({x,y,el,rings:1,cen:null});return atoms.length-1;};
+  const bond=(a,b,o=1)=>{const k=Math.min(a,b)+'-'+Math.max(a,b);if(!bset.has(k)){bset.add(k);bonds.push([a,b,o]);}};
+  const C={A:[0,0],B:[s3*r,0],C:[1.5*s3*r,1.5*r]}, ring={};
+  for(const n in C){const [cx,cy]=C[n];ring[n]=[];for(let i=0;i<6;i++){const a=(30+60*i)*Math.PI/180;const id=at(cx+r*Math.cos(a),cy+r*Math.sin(a),'C');if(!atoms[id].cen)atoms[id].cen=C[n];ring[n].push(id);}}
+  for(const n in ring)for(let i=0;i<6;i++)bond(ring[n][i],ring[n][(i+1)%6],(n!=='B'&&i%2===0)?2:1);
+  atoms[ring.B[4]].el='O';
+  const out=(cen,id,len,el)=>{const a=atoms[id],dx=a.x-cen[0],dy=a.y-cen[1],L=Math.hypot(dx,dy);return at(a.x+dx/L*len,a.y+dy/L*len,el);};
+  const sub=new Set([ring.B[5],ring.A[2],ring.C[0],ring.B[4]]);
+  bond(ring.B[5],out(C.B,ring.B[5],.9,'O'),2);
+  const oh=(cen,id)=>{const o=out(cen,id,.95,'O');bond(id,o);const a=atoms[o],p=atoms[id],ang=Math.atan2(a.y-p.y,a.x-p.x)+.95;bond(o,at(a.x+Math.cos(ang)*.62,a.y+Math.sin(ang)*.62,'H'));};
+  oh(C.A,ring.A[2]); oh(C.C,ring.C[0]);
+  atoms.slice().forEach((a,i)=>{if(a.el==='C'&&a.rings===1&&!sub.has(i)&&a.cen)bond(i,out(a.cen,i,.72,'H'));});
+  let cx=0,cy=0; atoms.forEach(a=>{cx+=a.x;cy+=a.y;}); cx/=atoms.length; cy/=atoms.length;
+
+  const grp=new THREE.Group(); scene.add(grp);
+  const sg=new THREE.SphereGeometry(1,40,28), cg=new THREE.CylinderGeometry(1,1,1,20);
+  const M={C:new THREE.MeshPhysicalMaterial({color:0x1d1d22,roughness:.28,clearcoat:1,clearcoatRoughness:.08}),
+    O:new THREE.MeshPhysicalMaterial({color:0xA82039,roughness:.25,clearcoat:1,clearcoatRoughness:.08}),
+    H:new THREE.MeshPhysicalMaterial({color:0xf2f2f4,roughness:.3,clearcoat:1}),
+    b:new THREE.MeshPhysicalMaterial({color:0xb4b4ba,roughness:.35,metalness:.2})};
+  const RAD={C:.3,O:.32,H:.19};
+  atoms.forEach(a=>{const m=new THREE.Mesh(sg,M[a.el]);m.scale.setScalar(RAD[a.el]);m.position.set(a.x-cx,a.y-cy,0);grp.add(m);});
+  const Y=new THREE.Vector3(0,1,0);
+  bonds.forEach(([i,j,o])=>{
+    const a=new THREE.Vector3(atoms[i].x-cx,atoms[i].y-cy,0), b=new THREE.Vector3(atoms[j].x-cx,atoms[j].y-cy,0);
+    const dir=b.clone().sub(a), len=dir.length(); dir.normalize();
+    const perp=new THREE.Vector3(-dir.y,dir.x,0);
+    const offs=o===2?[-.09,.09]:[0];
+    offs.forEach(off=>{const m=new THREE.Mesh(cg,M.b);m.scale.set(o===2?.045:.06,len,o===2?.045:.06);
+      m.position.copy(a).add(b).multiplyScalar(.5).addScaledVector(perp,off);m.quaternion.setFromUnitVectors(Y,dir);grp.add(m);});
+  });
+
+  function size(){const w=fig.clientWidth,h=fig.clientHeight;if(!w)return;R.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix();}
+  new ResizeObserver(size).observe(fig); size();
+  let spin=0,vel=.45,drag=null;
+  cv.addEventListener('pointerdown',e=>{drag={x:e.clientX};cv.setPointerCapture(e.pointerId);});
+  cv.addEventListener('pointermove',e=>{if(!drag)return;vel=clamp((e.clientX-drag.x)*.15,-8,8);drag.x=e.clientX;});
+  const up=()=>{drag=null;}; cv.addEventListener('pointerup',up); cv.addEventListener('pointercancel',up);
+  loop(fig,(t,dt)=>{
+    if(!drag)vel+=(.45-vel)*Math.min(1,dt*1.2);
+    spin+=vel*dt; grp.rotation.y=STATIC?.5:spin; grp.rotation.x=Math.sin(t*.35)*.28; grp.rotation.z=.12;
+    R.render(scene,cam);
+  });
+}
+</script>
+
 
 
