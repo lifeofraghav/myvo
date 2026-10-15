@@ -386,11 +386,11 @@ body{background:#fff}
 .btn.ghost{border:1px solid var(--ink);color:var(--ink);background:transparent}
 .btn.ghost-l{border:1px solid rgba(255,255,255,.6);color:#fff;background:transparent}
 
-.ah{background:var(--apple);text-align:center;padding:130px var(--gut) 72px;overflow:hidden}
+.ah{background:var(--apple);text-align:center;padding:108px var(--gut) 64px;overflow:hidden}
 .ah-eye{font-size:1.15rem;font-weight:600;letter-spacing:-.01em}
 .ah h1{font-size:clamp(3.2rem,8vw,7rem);font-weight:600;letter-spacing:-.05em;line-height:1;margin-top:8px}
 .ah-sub{font-size:clamp(1.05rem,1.6vw,1.35rem);color:var(--ink2);margin-top:16px}
-.ah-img{max-width:540px;margin:20px auto 0;background:transparent;-webkit-mask-image:radial-gradient(ellipse 50% 50% at 50% 52%,#000 62%,transparent 100%);mask-image:radial-gradient(ellipse 50% 50% at 50% 52%,#000 62%,transparent 100%)}
+.ah-img{max-width:min(400px,46vh);margin:8px auto 0;background:transparent;-webkit-mask-image:radial-gradient(ellipse 50% 50% at 50% 52%,#000 62%,transparent 100%);mask-image:radial-gradient(ellipse 50% 50% at 50% 52%,#000 62%,transparent 100%)}
 .ah-bar{display:inline-flex;align-items:center;gap:22px;background:#fff;border-radius:18px;padding:10px 10px 10px 22px;margin-top:-12px;font-size:.92rem;color:var(--ink2);box-shadow:0 1px 2px rgba(0,0,0,.04);text-align:left}
 .ah-bar b{color:var(--ink);font-weight:600}
 @media(max-width:600px){.ah{padding-top:100px}.ah-bar{flex-direction:column;gap:10px;padding:14px 18px;text-align:center}}
@@ -458,6 +458,26 @@ body{background:#fff}
 .sb-who b{color:var(--ink);font-weight:600;margin-right:6px}
 @media(max-width:520px){.sb-who span{display:none}}
 
+
+/* coming soon + waitlist */
+.soon{display:inline-block;vertical-align:3px;margin-left:8px;font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);border:1px solid currentColor;border-radius:999px;padding:3px 9px}
+.anchor{position:absolute;top:-20px}
+.wl-l{display:block;font-size:.92rem;color:var(--ink2);margin-bottom:10px}
+.ah-wl{display:inline-block;background:#fff;border-radius:22px;padding:18px 18px 14px;margin-top:-12px;box-shadow:0 1px 2px rgba(0,0,0,.04);width:min(100%,460px)}
+.wl-row{display:flex;gap:8px}
+.wl input{flex:1;min-width:0;height:44px;border:1px solid #D2D2D7;border-radius:999px;padding:0 18px;font:inherit;font-size:.95rem;color:var(--ink);background:#fff}
+.wl input:focus{outline:none;border-color:var(--ink)}
+.ah-wl .btn{height:44px}
+.wl-msg{font-size:.84rem;color:var(--muted);min-height:1.3em;margin-top:8px}
+.wl.done .wl-row,.wl.done input,.wl.done button{display:none}
+.wl.done .wl-l{display:none}
+.wl.done .wl-msg{color:var(--ink);font-weight:500;margin-top:0}
+.wl-buy{display:grid;gap:10px;margin-top:16px}
+.wl-buy input{flex:none;width:100%;border-radius:12px;height:48px}
+.wl-buy .btn{margin-top:4px}
+.opts-l{font-size:.82rem;color:var(--muted);padding:0;margin-bottom:8px}
+@media(max-width:520px){.wl-row{flex-direction:column}.ah-wl .btn{width:100%}}
+
 /* motion */
 .rv{opacity:0;transform:translateY(22px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
 .rv.in{opacity:1;transform:none}
@@ -468,28 +488,32 @@ html.static .rv{opacity:1;transform:none;transition:none}
 <header class="sh" id="sh">
   <nav class="sh-l" aria-label="Primary">
     <a class="logo" href="#top" aria-label="Myvo home"><span class="mark"></span><span class="word">MYVO</span></a>
-    <a href="#shop">Shop</a>
+    <a href="#shop">Myvo One</a>
     <a class="hide-s" href="#science">Science</a>
     <a class="hide-m" href="#lab">Lab reports</a>
   </nav>
-  <div class="sh-r"><a class="hide-m" href="#faq">FAQ</a><a class="sh-cta" href="#shop">Reserve</a></div>
+  <div class="sh-r"><a class="hide-m" href="#faq">FAQ</a><a class="sh-cta" href="#waitlist">Join waitlist</a></div>
 </header>
 
 <main>
 
 <section class="ah" id="top">
-  <p class="ah-eye rv">Myvo One</p>
+  <p class="ah-eye rv">Myvo One <span class="soon">Coming soon</span></p>
   <h1 class="rv">The real Urolithin&nbsp;A.</h1>
   <p class="ah-sub rv">Finally in India. Two softgels a day, tested batch by batch.</p>
   <figure class="lbl ah-img rv"><img src="__JAR__" alt="Myvo One: smoked glass jar with amber softgels"><div class="jp-label" aria-hidden="true" style="left:26%;right:26%;top:42%;height:27%"><span class="jp-w">MYVO</span><span class="jp-rule"></span><span class="jp-mono">Urolithin A / 500 mg<br>Daily cellular renewal<br>60 softgels</span><span class="jp-batch">Batch MYV-27-001</span></div></figure>
-  <div class="ah-bar rv"><span><b>From &#8377;8,999/mo.</b> Founding price, locked for life.</span><a class="btn dark sm" href="#shop">Reserve</a></div>
+  <form class="wl ah-wl rv" novalidate>
+    <label class="wl-l" for="wl-hero">Get first access and the founding price.</label>
+    <div class="wl-row"><input id="wl-hero" type="email" name="email" placeholder="Your email" autocomplete="email" required><button class="btn dark sm" type="submit">Join waitlist</button></div>
+    <p class="wl-msg" role="status" aria-live="polite"></p>
+  </form>
 </section>
 
 <section class="tiles" aria-label="Highlights">
   <article class="tile rv">
     <h2>Myvo One</h2>
     <p>500 mg of Urolithin A. Every morning.</p>
-    <div class="t-cta"><a class="btn dark sm" href="#shop">Reserve</a><a class="btn ghost sm" href="#formula">What's inside</a></div>
+    <div class="t-cta"><a class="btn dark sm" href="#waitlist">Join waitlist</a><a class="btn ghost sm" href="#formula">What's inside</a></div>
     <figure class="lbl t-img">
       <img src="__JARMACRO__" alt="Myvo One jar, close up">
       <div class="jp-label" aria-hidden="true" style="left:27%;right:27%;top:62%;height:30%"><span class="jp-w" style="font-size:4.6cqw">MYVO</span><span class="jp-rule"></span><span class="jp-mono" style="font-size:1.5cqw">Urolithin A / 500 mg</span></div>
@@ -498,7 +522,7 @@ html.static .rv{opacity:1;transform:none;transition:none}
   <article class="tile dark rv" id="lab">
     <h2>Every batch, tested.</h2>
     <p>Purity, dose, metals and microbes, before it ships.</p>
-    <div class="t-cta"><a class="btn light sm" href="#faq">How testing works</a><a class="btn ghost-l sm" href="#shop">Reserve</a></div>
+    <div class="t-cta"><a class="btn light sm" href="#faq">How testing works</a><a class="btn ghost-l sm" href="#waitlist">Join waitlist</a></div>
     <div class="t-rep" aria-hidden="true">
       <div class="tr-h"><span>Batch MYV-27-001</span><i>Sample</i></div>
       <div class="tr-row"><span>Urolithin A</span><b>99.24%</b></div>
@@ -563,11 +587,11 @@ html.static .rv{opacity:1;transform:none;transition:none}
   </div>
 </section>
 
-<section class="z light" id="shop">
+<section class="z light" id="shop"><span id="waitlist" class="anchor"></span>
   <div class="wrap">
     <header class="zh rv">
-      <h2>Choose your plan.</h2>
-      <p>100 founding memberships. The price you lock in today stays for life.</p>
+      <h2>Join the waitlist.</h2>
+      <p>Myvo One isn't on sale yet. The first 100 people on the list get batch 001 at the founding price, locked for life.</p>
     </header>
     <div class="pdp-grid shop-card">
       <div class="gal-col rv">
@@ -610,17 +634,22 @@ html.static .rv{opacity:1;transform:none;transition:none}
     
       </div>
       <div class="buy rv">
-      <span class="sku">MYV-01</span>
+      <span class="sku">MYV-01</span> <span class="soon">Coming soon</span>
       <h2>Myvo One</h2>
       <p class="meta">Urolithin A 500 mg &middot; 60 softgels &middot; 30-day supply</p>
       <p class="desc">A daily 500 mg dose of Urolithin A, the compound that tells your cells to recycle damaged mitochondria. One ingredient, at the dose studied in human trials. No blends.</p>
       <fieldset class="opts">
-        <legend class="sr" style="position:absolute;left:-9999px">Choose a plan</legend>
+        <legend class="opts-l">Founding price you'll get</legend>
         <label class="opt"><input type="radio" name="plan" value="monthly" checked><span><b>Monthly</b><small>Founding price, locked for life</small></span><span class="price">&#8377;8,999<small> /mo</small></span></label>
         <label class="opt"><input type="radio" name="plan" value="annual"><span><b>Annual <em class="save">Save 17%</em></b><small>Two months free</small></span><span class="price"><s>&#8377;1,07,988</s>&#8377;89,990</span></label>
       </fieldset>
-      <a class="btn dark full" id="reserve" href="mailto:founders@myvo.life?subject=Founding%20membership%20(monthly)">Reserve a founding spot</a>
-      <p class="fine">100 founding spots. We email you before batch 001 ships.</p>
+      <form class="wl wl-buy" novalidate>
+        <input type="email" name="email" placeholder="Email" autocomplete="email" required aria-label="Email">
+        <input type="tel" name="phone" placeholder="WhatsApp number (optional)" autocomplete="tel" aria-label="WhatsApp number, optional">
+        <button class="btn dark full" type="submit">Join the waitlist</button>
+        <p class="wl-msg" role="status" aria-live="polite"></p>
+      </form>
+      <p class="fine">No payment now. We'll email you when batch 001 clears testing.</p>
       <div class="acc">
         <details><summary>What it does</summary><div class="body"><ul><li>Tells cells to clear out worn mitochondria (mitophagy)</li><li>+12% leg strength at 16 weeks in a placebo-controlled trial</li><li>+41% muscle endurance at four months in older adults</li></ul></div></details>
         <details><summary>What's inside</summary><div class="body">Urolithin A, 500 mg per daily serving of two softgels. Purity above 99% by HPLC. No proprietary blends, no added colours.</div></details>
@@ -641,7 +670,7 @@ html.static .rv{opacity:1;transform:none;transition:none}
       <details><summary>Why not just eat pomegranates?</summary><div class="body">Only about one in three people have the gut bacteria that turn pomegranate into Urolithin A, and even they can't eat their way to 500 mg. Myvo One delivers the finished molecule, so your gut stops being the bottleneck.</div></details>
       <details><summary>How is this different from cheaper Urolithin A online?</summary><div class="body">Independent testing found most Urolithin A sold online doesn't contain the dose on its label. Myvo publishes a third-party report for every batch, showing purity and dose per softgel, before anything ships.</div></details>
       <details><summary>How is every batch tested?</summary><div class="body">Before a batch ships, an independent NABL-accredited lab in India measures Urolithin A purity (HPLC), dose per softgel, heavy metals (ICP-MS), microbes and residual solvents. If a batch fails, it doesn't ship. The QR on your carton opens that batch's report.</div></details>
-      <details><summary>When does it ship?</summary><div class="body">Batch 001 ships once it has cleared independent testing. Founding members hear first, with the batch report, before anything is charged.</div></details>
+      <details><summary>When can I buy it?</summary><div class="body">Myvo One isn't on sale yet. Batch 001 goes on sale once it has cleared independent testing. Everyone on the waitlist hears first, and the first 100 get the founding price, locked for life.</div></details>
     </div>
   </div>
 </section>
@@ -653,10 +682,10 @@ html.static .rv{opacity:1;transform:none;transition:none}
     <div class="sf-l">
       <a class="logo" href="#top"><span class="mark"></span><span class="word">MYVO</span></a>
       <p class="sf-big">Urolithin A at the dose studied in human trials, tested batch by batch, for people who train.</p>
-      <a class="btn light sm" href="mailto:founders@myvo.life?subject=Waitlist">Get launch updates</a>
+      <a class="btn light sm" href="#waitlist">Join the waitlist</a>
     </div>
     <div class="sf-cols">
-      <div><h4>Shop</h4><a href="#shop">Myvo One</a><a href="#shop">Founding membership</a></div>
+      <div><h4>Myvo One</h4><a href="#waitlist">Join the waitlist</a><a href="#shop">Founding price</a></div>
       <div><h4>Science</h4><a href="#formula">What's inside</a><a href="#science">Trial results</a><a href="#lab">Lab reports</a></div>
       <div><h4>Help</h4><a href="#faq">FAQ</a><a href="mailto:founders@myvo.life">Contact</a></div>
     </div>
@@ -665,7 +694,7 @@ html.static .rv{opacity:1;transform:none;transition:none}
 </footer>
 
 <div class="sbar" id="sbar" aria-hidden="true">
-  <div class="wrap"><div class="sb-who"><img src="__JARMACRO__" alt=""><span><b>Myvo One</b> Urolithin A 500 mg</span></div><a class="btn dark sm" href="#shop" tabindex="-1">Reserve, &#8377;8,999/mo</a></div>
+  <div class="wrap"><div class="sb-who"><img src="__JARMACRO__" alt=""><span><b>Myvo One</b> Coming soon</span></div><a class="btn dark sm" href="#waitlist" tabindex="-1">Join waitlist</a></div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
@@ -688,11 +717,28 @@ html.static .rv{opacity:1;transform:none;transition:none}
     thumbs.forEach(function(x){x.classList.toggle('on',x===t);});
   });});
 
-  /* plan choice updates the reserve link */
-  var reserve=d.getElementById('reserve');
-  d.querySelectorAll('input[name=plan]').forEach(function(r){r.addEventListener('change',function(){
-    reserve.href='mailto:founders@myvo.life?subject=Founding%20membership%20('+r.value+')';
-  });});
+  /* waitlist: posts to WAITLIST_ENDPOINT when set, otherwise opens a prefilled email */
+  var WAITLIST_ENDPOINT='', WAITLIST_EMAIL='founders@myvo.life', KEY='myvo-waitlist';
+  function joined(){try{return localStorage.getItem(KEY);}catch(e){return null;}}
+  function markJoined(){d.querySelectorAll('form.wl').forEach(function(f){f.classList.add('done');var m=f.querySelector('.wl-msg');if(m)m.textContent="You're on the list. We'll email you before batch 001 goes on sale.";});}
+  if(joined())markJoined();
+  d.querySelectorAll('form.wl').forEach(function(f){
+    f.addEventListener('submit',function(e){
+      e.preventDefault();
+      var em=f.querySelector('input[name=email]'), ph=f.querySelector('input[name=phone]'), msg=f.querySelector('.wl-msg');
+      var v=(em.value||'').trim();
+      if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)){msg.textContent='Enter a valid email address.';em.focus();return;}
+      var planEl=d.querySelector('input[name=plan]:checked'), data={email:v,phone:ph?ph.value.trim():'',plan:planEl?planEl.value:'',source:f.classList.contains('ah-wl')?'hero':'waitlist',at:new Date().toISOString()};
+      var btn=f.querySelector('button'); btn.disabled=true;
+      function ok(){try{localStorage.setItem(KEY,'1');}catch(e){} markJoined(); btn.disabled=false;}
+      if(WAITLIST_ENDPOINT){
+        fetch(WAITLIST_ENDPOINT,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(data)}).then(ok,function(){btn.disabled=false;msg.textContent='Something went wrong. Please try again.';});
+      } else {
+        location.href='mailto:'+WAITLIST_EMAIL+'?subject='+encodeURIComponent('Myvo waitlist')+'&body='+encodeURIComponent('Add me to the Myvo One waitlist.\n\nEmail: '+data.email+(data.phone?'\nWhatsApp: '+data.phone:'')+(data.plan?'\nPlan: '+data.plan:''));
+        ok();
+      }
+    });
+  });
 
 
 
