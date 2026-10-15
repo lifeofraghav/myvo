@@ -370,7 +370,7 @@ body{background:#fff}
 .sh{position:fixed;z-index:70;top:14px;left:max(var(--gut),calc((100% - var(--maxw))/2 + var(--gut)));right:max(var(--gut),calc((100% - var(--maxw))/2 + var(--gut)));display:flex;justify-content:space-between;align-items:center;pointer-events:none}
 .sh-l,.sh-r{pointer-events:auto;display:flex;align-items:center;gap:22px;padding:6px 8px 6px 18px;border-radius:999px;background:rgba(232,232,237,.72);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);font-size:.86rem}
 .sh-l{padding-right:20px;height:44px}
-.sh-r{gap:14px;height:44px}
+.sh-r{gap:14px;height:44px;padding:6px}
 .sh a{text-decoration:none;color:var(--ink2)}
 .sh a:hover{color:var(--ink)}
 .sh .logo{margin-right:0;gap:8px}
@@ -400,7 +400,7 @@ body{background:#fff}
 .tile{position:relative;border-radius:28px;background:var(--apple);text-align:center;padding:52px 32px 0;min-height:min(66vh,620px);display:flex;flex-direction:column;align-items:center;overflow:hidden}
 .tile.dark{background:#000;color:#fff}
 .tile h2{font-size:clamp(2.2rem,3.8vw,3.4rem);font-weight:600;letter-spacing:-.04em;line-height:1.05}
-.tile p{margin-top:8px;font-size:1.12rem;color:var(--ink2)}
+.tile p{margin:8px 0 32px;font-size:1.12rem;color:var(--ink2)}
 .tile.dark p{color:rgba(255,255,255,.75)}
 .t-cta{display:flex;gap:12px;justify-content:center;margin-top:22px}
 .t-img{margin:auto 0 0;width:min(100%,460px);aspect-ratio:1/1;overflow:hidden}
@@ -522,8 +522,9 @@ html.static .rv{opacity:1;transform:none;transition:none}
     <a href="#shop">Myvo One</a>
     <a class="hide-s" href="#science">Science</a>
     <a class="hide-m" href="#lab">Lab reports</a>
+    <a class="hide-m" href="#faq">FAQ</a>
   </nav>
-  <div class="sh-r"><a class="hide-m" href="#faq">FAQ</a><a class="sh-cta" href="#waitlist">Join waitlist</a></div>
+  <div class="sh-r"><a class="sh-cta" href="#waitlist">Join waitlist</a></div>
 </header>
 
 <main>
@@ -544,13 +545,11 @@ html.static .rv{opacity:1;transform:none;transition:none}
   <article class="tile rv">
     <h2>Myvo One</h2>
     <p>500 mg of Urolithin A. Every morning.</p>
-    <div class="t-cta"><a class="btn dark sm" href="#waitlist">Join waitlist</a><a class="btn ghost sm" href="#formula">What's inside</a></div>
     <figure class="t-img"><img src="__HERO__" alt="Myvo One jar, close up"></figure>
   </article>
   <article class="tile dark rv" id="lab">
     <h2>Every batch, tested.</h2>
     <p>Purity, dose, metals and microbes, before it ships.</p>
-    <div class="t-cta"><a class="btn light sm" href="#faq">How testing works</a><a class="btn ghost-l sm" href="#waitlist">Join waitlist</a></div>
     <div class="t-rep" aria-hidden="true">
       <div class="tr-h"><span>Batch MYV-27-001</span><i>Sample</i></div>
       <div class="tr-row"><span>Urolithin A</span><b>99.24%</b></div>
