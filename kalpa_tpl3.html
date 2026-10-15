@@ -391,7 +391,7 @@ body{background:#fff}
 .ah-sub{font-size:clamp(1.05rem,1.6vw,1.35rem);color:var(--ink2);margin-top:16px}
 .ah-img{max-width:min(380px,44vh);margin:8px auto 0}
 .ah-img img,.an-jar img{width:100%;height:auto}
-.ah-img,.an-jar{-webkit-mask-image:radial-gradient(ellipse 62% 60% at 50% 50%,#000 72%,transparent 100%);mask-image:radial-gradient(ellipse 62% 60% at 50% 50%,#000 72%,transparent 100%)}
+.ah-img{-webkit-mask-image:radial-gradient(ellipse 62% 60% at 50% 50%,#000 72%,transparent 100%);mask-image:radial-gradient(ellipse 62% 60% at 50% 50%,#000 72%,transparent 100%)}
 .ah-bar{display:inline-flex;align-items:center;gap:22px;background:#fff;border-radius:18px;padding:10px 10px 10px 22px;margin-top:-12px;font-size:.92rem;color:var(--ink2);box-shadow:0 1px 2px rgba(0,0,0,.04);text-align:left}
 .ah-bar b{color:var(--ink);font-weight:600}
 @media(max-width:600px){.ah{padding-top:100px}.ah-bar{flex-direction:column;gap:10px;padding:14px 18px;text-align:center}}
@@ -421,7 +421,8 @@ body{background:#fff}
 .an-chip b{font-size:1.8rem;font-weight:600;letter-spacing:-.03em;color:var(--ink)}
 .an-fine{margin-top:16px;font-size:.84rem;color:var(--muted);max-width:44ch}
 .an-vis{position:relative;min-height:440px;display:grid;place-items:center}
-.an-jar{width:min(72%,380px);margin:0}
+.an-jar{width:min(56%,300px);margin:0}
+.an-jar img{filter:drop-shadow(0 28px 30px rgba(29,29,31,.16)) drop-shadow(0 6px 10px rgba(29,29,31,.08))}
 .co{position:absolute;max-width:190px;font-size:.82rem;line-height:1.4}
 .co b{display:block;font-weight:600;font-size:.86rem}
 .co span{color:var(--muted)}
@@ -432,8 +433,10 @@ body{background:#fff}
 
 #science.light{background:#fff}
 #science .card{background:var(--apple);border:0;border-radius:24px}
-#science .cbars i{background:#D2D2D7}
-#science .cbars i.m{background:var(--accent)}
+#science .cbars{border-bottom:0;gap:12px}
+#science .cbars i{position:relative;background:linear-gradient(180deg,#ECECF0,#D6D6DC);border-radius:12px;box-shadow:inset 0 2px 0 rgba(255,255,255,.7)}
+#science .cbars i.m{background:linear-gradient(180deg,#FF9AA8 0%,#FF4D6A 34%,#E02447 72%,#B8193A 100%);box-shadow:inset 0 2px 0 rgba(255,255,255,.5),inset 0 -8px 14px rgba(120,8,32,.22),0 10px 22px -10px rgba(240,50,85,.7)}
+#science .cbars i.m::after{content:"";position:absolute;left:12%;top:8px;width:16%;bottom:28%;border-radius:99px;background:linear-gradient(180deg,rgba(255,255,255,.6),rgba(255,255,255,0))}
 .zh h2{font-weight:600;letter-spacing:-.04em;font-size:clamp(2.2rem,4vw,3.4rem)}
 .shop-card{background:var(--apple);border-radius:28px;padding:clamp(20px,3vw,40px)}
 .shop-card .gal-main,.shop-card .thumb{background:var(--apple)}
@@ -451,7 +454,7 @@ body{background:#fff}
 .sf-cols a{display:block;color:rgba(255,255,255,.85);text-decoration:none;font-size:.92rem;margin-bottom:9px}
 .sf-cols a:hover{color:#fff}
 .sf-note{margin-top:56px;font-size:.76rem;color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:12px 16px;max-width:70ch;line-height:1.6}
-.sf-copy{margin-top:18px;font-size:.76rem;color:rgba(255,255,255,.4)}
+.sf-copy{margin-top:48px;font-size:.76rem;color:rgba(255,255,255,.4)}
 @media(max-width:820px){.sf-top{grid-template-columns:1fr}.sf-cols{grid-template-columns:1fr 1fr}}
 .sbar{position:fixed;z-index:65;left:0;right:0;bottom:0;background:rgba(255,255,255,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid var(--line);transform:translateY(105%);transition:transform .35s var(--ease)}
 .sbar.on{transform:none}
@@ -504,7 +507,7 @@ html.no3d .mol{display:none}
 .gal-main .lbl{height:100%}
 .gal-main .lbl>img{width:100%;height:100%;object-fit:cover}
 .gal-main .lbl.fit>img{object-fit:contain}
-.thumbs{grid-template-columns:repeat(4,1fr)}
+.thumbs{grid-template-columns:repeat(3,1fr)}
 .thumb{background:var(--apple)}
 /* motion */
 .rv{transition:opacity .8s var(--ease),transform .8s var(--ease)}
@@ -604,7 +607,6 @@ html.static .rv{opacity:1;transform:none;transition:none}
         <p class="csrc">Cell Reports Medicine, 2022. 500 mg a day for 16 weeks.</p>
       </article>
     </div>
-    <p class="zfine rv">Not a stimulant, so you won't feel it in an hour. The trials measured these changes over weeks to months. Results vary.</p>
   </div>
 </section>
 
@@ -640,15 +642,13 @@ html.static .rv{opacity:1;transform:none;transition:none}
           <div class="gal-main" id="gal">
             <figure class="lbl on fit" data-i="0"><img src="__HERO__" alt="Myvo One: frosted glass jar of red softgels"></figure>
             <figure class="lbl" data-i="1"><img src="__SYSTEM__" alt="Myvo One jar on a white block next to its black MYVO carton"></figure>
-            <figure class="lbl" data-i="2"><img src="__BOX__" alt="Black Myvo carton with a thin red rule under the MYVO wordmark"></figure>
-            <figure class="lbl" data-i="3"><img src="__POUCHW__" alt="White Myvo refill pouch with the MYVO wordmark and a thin red rule"></figure>
+            <figure class="lbl" data-i="2"><img src="__POUCHW__" alt="White Myvo refill pouch with the MYVO wordmark and a thin red rule"></figure>
           </div>
         </div>
         <div class="thumbs" role="tablist" aria-label="Product photos">
           <button class="thumb on" data-i="0" aria-label="Jar"><img src="__HERO__" alt=""></button>
           <button class="thumb" data-i="1" aria-label="Jar and carton"><img src="__SYSTEM__" alt=""></button>
-          <button class="thumb" data-i="2" aria-label="Carton"><img src="__BOX__" alt=""></button>
-          <button class="thumb" data-i="3" aria-label="Refill pouch"><img src="__POUCHW__" alt=""></button>
+          <button class="thumb" data-i="2" aria-label="Refill pouch"><img src="__POUCHW__" alt=""></button>
         </div>
     
       </div>
@@ -659,8 +659,8 @@ html.static .rv{opacity:1;transform:none;transition:none}
       <p class="desc">A daily 500 mg dose of Urolithin A, the compound that tells your cells to recycle damaged mitochondria. One ingredient, at the dose studied in human trials. No blends.</p>
       <fieldset class="opts">
         <legend class="opts-l">Founding price you'll get</legend>
-        <label class="opt"><input type="radio" name="plan" value="monthly" checked><span><b>Monthly</b><small>Founding price, locked for life</small></span><span class="price">&#8377;8,999<small> /mo</small></span></label>
-        <label class="opt"><input type="radio" name="plan" value="annual"><span><b>Annual <em class="save">Save 17%</em></b><small>Two months free</small></span><span class="price"><s>&#8377;1,07,988</s>&#8377;89,990</span></label>
+        <label class="opt"><input type="radio" name="plan" value="monthly" checked><span><b>Monthly</b><small>Founding price, locked for life</small></span><span class="price">&#8377;3,999<small> /mo</small></span></label>
+        <label class="opt"><input type="radio" name="plan" value="annual"><span><b>Annual <em class="save">Save 17%</em></b><small>Two months free</small></span><span class="price"><s>&#8377;47,988</s>&#8377;39,990</span></label>
       </fieldset>
       <form class="wl wl-buy" novalidate>
         <input type="email" name="email" placeholder="Email" autocomplete="email" required aria-label="Email">
@@ -703,7 +703,7 @@ html.static .rv{opacity:1;transform:none;transition:none}
       <div><h4>Help</h4><a href="#faq">FAQ</a><a href="mailto:founders@myvo.life">Contact</a></div>
     </div>
   </div>
-  <div class="wrap"><p class="sf-note">Clinical figures are from published randomized controlled trials of Urolithin A at the doses studied. These statements are not intended to diagnose, treat, cure or prevent any disease.</p><p class="sf-copy">&copy; 2026 Myvo</p></div>
+  <div class="wrap"><p class="sf-copy">&copy; 2026 Myvo</p></div>
 </footer>
 
 <div class="sbar" id="sbar" aria-hidden="true">

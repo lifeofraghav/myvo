@@ -8,7 +8,7 @@ MAP = {
     "__SYSTEM__": "myvo_system.jpg",
     "__BOX__": "myvo_box.jpg",
     "__POUCHW__": "myvo_pouch_wide.jpg",
-    "__FLOAT__": "myvo_float.jpg",
+    "__FLOAT__": "myvo_float_cut.webp",
     "__JAR__": "c_jar.jpg",
     "__SEEDS__": "c_micro.jpg",
     "__ORCHARD__": "c_labwide.jpg",
@@ -24,7 +24,8 @@ MAP = {
 html = (root / "kalpa_tpl3.html").read_text(encoding="utf-8")
 for token, fname in MAP.items():
     data = base64.b64encode((root / "img" / fname).read_bytes()).decode()
-    html = html.replace(token, f"data:image/jpeg;base64,{data}")
+    mime = {"png": "image/png", "webp": "image/webp"}.get(fname.rsplit(".", 1)[-1], "image/jpeg")
+    html = html.replace(token, f"data:{mime};base64,{data}")
 out = root / "kalpa.html"
 out.write_text(html, encoding="utf-8")
 print(f"built {out} ({out.stat().st_size/1e6:.2f} MB)")
