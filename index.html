@@ -479,8 +479,8 @@ body{background:#fff}
 @media(max-width:520px){.wl-row{flex-direction:column}.ah-wl .btn{width:100%}}
 
 /* motion */
-.rv{opacity:0;transform:translateY(22px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
-.rv.in{opacity:1;transform:none}
+.rv{transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rv.wait{opacity:0;transform:translateY(22px)}
 html.static .rv{opacity:1;transform:none;transition:none}
 @media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
 </style>
@@ -704,10 +704,17 @@ html.static .rv{opacity:1;transform:none;transition:none}
   if(isStatic) d.documentElement.classList.add('static');
 
   /* reveal on scroll */
-  if(!isStatic && 'IntersectionObserver' in window){
-    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.12,rootMargin:'0px 0px -8% 0px'});
-    d.querySelectorAll('.rv').forEach(function(el){io.observe(el);});
-  } else { d.querySelectorAll('.rv').forEach(function(el){el.classList.add('in');}); }
+  /* content is visible by default; only blocks below the first screen fade in, and a failsafe shows everything */
+  var rvs=[].slice.call(d.querySelectorAll('.rv'));
+  function show(el){el.classList.remove('wait');}
+  if(!isStatic && 'IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches){
+    rvs.forEach(function(el){if(el.getBoundingClientRect().top>innerHeight*.9)el.classList.add('wait');});
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){show(e.target);io.unobserve(e.target);}})},{threshold:0});
+    rvs.forEach(function(el){if(el.classList.contains('wait'))io.observe(el);});
+    function sweep(){rvs.forEach(function(el){if(el.classList.contains('wait')&&el.getBoundingClientRect().top<innerHeight)show(el);});}
+    addEventListener('scroll',sweep,{passive:true}); addEventListener('resize',sweep);
+    setTimeout(function(){rvs.forEach(show);},4000);
+  }
 
   /* gallery */
   var figs=d.querySelectorAll('#gal .lbl'), thumbs=d.querySelectorAll('.thumb');
