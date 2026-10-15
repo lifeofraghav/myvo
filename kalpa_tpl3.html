@@ -230,9 +230,6 @@ button{font:inherit;color:inherit}
 
 
 
-/* lenis */
-html.lenis,html.lenis body{height:auto}
-.lenis.lenis-smooth{scroll-behavior:auto!important}
 
 /* header over dark sections */
 .site{transition:background .35s,border-color .35s,color .35s}
@@ -720,7 +717,6 @@ html.static .rv{opacity:1;transform:none;transition:none}
   <div class="wrap"><div class="sb-who"><img src="__HERO__" alt=""><span><b>Myvo One</b> Coming soon</span></div><a class="btn dark sm" href="#waitlist" tabindex="-1">Join waitlist</a></div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
 <script>
 (function(){
   var d=document, isStatic=/[?&]static/.test(location.search);
@@ -778,15 +774,6 @@ html.static .rv{opacity:1;transform:none;transition:none}
     var on=a&&!inShop&&!nf; sbar.classList.toggle('on',on); sbar.setAttribute('aria-hidden',on?'false':'true');}
   if(!isStatic){addEventListener('scroll',sb,{passive:true});sb();}
 
-  /* smooth scroll */
-  if(!isStatic && window.Lenis && !matchMedia('(prefers-reduced-motion: reduce)').matches){
-    var lenis=window.__lenis=new Lenis({lerp:.09,smoothWheel:true});
-    (function raf(t){lenis.raf(t);requestAnimationFrame(raf);})(performance.now());
-    d.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){
-      var id=a.getAttribute('href'); if(id.length<2)return; var el=d.querySelector(id); if(!el)return;
-      e.preventDefault(); lenis.scrollTo(el,{offset:0,duration:1.4});
-    });});
-  }
 })();
 </script>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
