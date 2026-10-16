@@ -376,8 +376,19 @@ body{background:#fff}
 .sh .logo{margin-right:0;gap:8px}
 .sh .word{padding-left:0;margin-right:-.5em}
 .sh-cta{background:#fff;color:var(--ink)!important;height:32px;padding:0 16px;border-radius:999px;display:inline-flex;align-items:center;font-weight:500}
-@media(max-width:820px){.sh .hide-m{display:none}}
-@media(max-width:420px){.sh .hide-s{display:none}.sh-l{gap:16px}}
+.sh-burger,.sh-panel{display:none}
+@media(max-width:820px){
+.sh .hide-m{display:none}
+.sh-l{gap:14px;padding-right:6px}
+.sh-burger{display:inline-flex;flex-direction:column;justify-content:center;gap:5px;width:32px;height:32px;border:0;border-radius:999px;background:#fff;cursor:pointer;padding:0 9px}
+.sh-burger i{display:block;height:1.5px;background:var(--ink);border-radius:2px;transition:transform .25s var(--ease)}
+.sh.open .sh-burger i:first-child{transform:translateY(3.25px) rotate(45deg)}
+.sh.open .sh-burger i:last-child{transform:translateY(-3.25px) rotate(-45deg)}
+.sh-panel{position:absolute;top:54px;left:0;right:0;pointer-events:auto;flex-direction:column;padding:6px 8px;border-radius:22px;background:rgba(245,245,247,.96);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);box-shadow:0 18px 40px -18px rgba(0,0,0,.25)}
+.sh.open .sh-panel{display:flex}
+.sh-panel a{padding:15px 12px;font-size:1.05rem;color:var(--ink)!important;border-bottom:1px solid var(--line)}
+.sh-panel a:last-child{border-bottom:0}
+}
 .btn{font-weight:500}
 .btn.sm{height:38px;padding:0 18px;font-size:.88rem}
 .btn.dark{background:var(--ink)}
@@ -412,7 +423,7 @@ body{background:#fff}
 .tr-row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--line);font-size:.92rem}
 .tr-row b{font-weight:600;font-family:"Fragment Mono",monospace;font-size:.86rem}
 .tr-f{font-size:.76rem;color:var(--muted);padding-top:12px}
-@media(max-width:820px){.tiles{grid-template-columns:1fr}.tile{min-height:0;padding-top:44px}}
+@media(max-width:820px){.tiles{grid-template-columns:1fr}.tile{min-height:0;padding-top:44px}.tiles .tile:first-child{display:none}.sbar{display:none}}
 
 .anat{padding:var(--stack) 0 0}
 .an-card{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);align-items:center;gap:24px;background:#E8EBEF;border-radius:28px;padding:clamp(28px,4vw,64px);overflow:hidden}
@@ -443,7 +454,8 @@ body{background:#fff}
 .shop-card .gal-main,.shop-card .thumb{background:var(--apple)}
 .shop-card .gal-main{background:#F5F4F7}
 .shop-card .buy{top:80px}
-.save{font-style:normal;font-size:.72rem;font-weight:600;color:#fff;background:var(--accent);border-radius:999px;padding:2px 8px;margin-left:6px;vertical-align:2px}
+.save{font-style:normal;font-size:.72rem;font-weight:600;color:#fff;background:var(--accent);border-radius:999px;padding:2px 8px;margin-left:6px;vertical-align:2px;white-space:nowrap}
+@media(max-width:520px){.opt{padding:14px 14px;gap:12px}.opt .price s{display:block;margin:0 0 2px;font-size:.78rem}.opt small{font-size:.8rem}}
 .opt{background:#fff}
 #lab .paper{border-color:#E5E5EA}
 
@@ -495,7 +507,7 @@ body{background:#fff}
 .wl-buy input{flex:none;width:100%;border-radius:12px;height:48px}
 .wl-buy .btn{margin-top:4px}
 .opts-l{font-size:.82rem;color:var(--muted);padding:0;margin-bottom:8px}
-@media(max-width:520px){.wl-row{flex-direction:column}.ah-wl .btn{width:100%}}
+@media(max-width:520px){.wl-row{flex-direction:column}.wl-row input{flex:none;height:48px}.ah-wl .btn{width:100%;height:48px}.ah-wl{padding:18px 16px 16px}.ah-wl .wl-msg:empty{min-height:0;margin:0}}
 
 
 /* what goes into every softgel (3D molecule) */
@@ -532,11 +544,19 @@ html.static .rv{opacity:1;transform:none;transition:none}
 <header class="sh" id="sh">
   <nav class="sh-l" aria-label="Primary">
     <a class="logo" href="#top" aria-label="Myvo home"><span class="mark"></span><span class="word">MYVO</span></a>
-    <a href="#shop">Myvo One</a>
-    <a class="hide-s" href="#what">How it works</a>
+    <a class="hide-m" href="#shop">Myvo One</a>
+    <a class="hide-m" href="#what">How it works</a>
     <a class="hide-m" href="#science">Science</a>
     <a class="hide-m" href="#lab">Lab reports</a>
     <a class="hide-m" href="#faq">FAQ</a>
+    <button class="sh-burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="shp"><i></i><i></i></button>
+  </nav>
+  <nav class="sh-panel" id="shp" aria-label="Menu">
+    <a href="#shop">Myvo One</a>
+    <a href="#what">How it works</a>
+    <a href="#science">Science</a>
+    <a href="#lab">Lab reports</a>
+    <a href="#faq">FAQ</a>
   </nav>
   <div class="sh-r"><a class="sh-cta" href="#waitlist">Join waitlist</a></div>
 </header>
@@ -794,6 +814,12 @@ html.static .rv{opacity:1;transform:none;transition:none}
   /* waitlist: posts to WAITLIST_ENDPOINT when set, otherwise opens a prefilled email */
   var WAITLIST_ENDPOINT='', WAITLIST_EMAIL='founders@myvo.life', KEY='myvo-waitlist';
   function joined(){try{return localStorage.getItem(KEY);}catch(e){return null;}}
+  (function(){var sh=d.getElementById('sh'),bt=sh&&sh.querySelector('.sh-burger');if(!bt)return;
+    function set(o){sh.classList.toggle('open',o);bt.setAttribute('aria-expanded',o?'true':'false');bt.setAttribute('aria-label',o?'Close menu':'Open menu');}
+    bt.addEventListener('click',function(){set(!sh.classList.contains('open'));});
+    sh.querySelectorAll('.sh-panel a').forEach(function(a){a.addEventListener('click',function(){set(false);});});
+    d.addEventListener('keydown',function(e){if(e.key==='Escape')set(false);});
+  })();
   function markJoined(){d.querySelectorAll('form.wl').forEach(function(f){f.classList.add('done');var m=f.querySelector('.wl-msg');if(m)m.textContent="You're on the list. We'll email you before batch 001 goes on sale.";});}
   if(joined())markJoined();
   d.querySelectorAll('form.wl').forEach(function(f){
